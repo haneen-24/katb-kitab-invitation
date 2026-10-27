@@ -1,0 +1,56 @@
+:root { --gold: #8a6a2f; --ink: #5b4520; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #2b2620; font-family: var(--f-body), serif; color: var(--ink); }
+
+/* الموقع كله بعرض موبايل في النص */
+.wrap { position: relative; max-width: 480px; margin: 0 auto; background: #f4ecdc; }
+
+/* ---------- الظرف ---------- */
+.envelope { position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: min(100vw, 480px); height: 100dvh; z-index: 10; overflow: hidden;
+  transition: opacity .6s ease 1.8s; }
+.envelope.open { opacity: 0; pointer-events: none; }
+/* نص الصورة الشمال ونصها اليمين، وكل نص بينزلق لبره */
+.half { position: absolute; top: 0; width: 50%; height: 100%;
+  background: url(/seal.jpeg) no-repeat; background-size: 200% 100%;
+  transition: transform 1.6s cubic-bezier(.7,0,.2,1) .35s; }
+.left { left: 0; background-position: left center; }
+.right { right: 0; background-position: right center; }
+.open .left { transform: translateX(-102%); }
+.open .right { transform: translateX(102%); }
+/* زرار شفاف فوق الختم */
+.seal { position: absolute; top: 49%; left: 50%; width: 22%; aspect-ratio: 1; border-radius: 50%;
+  transform: translate(-50%, -50%); background: transparent; border: 2px solid rgba(255,255,255,.7);
+  cursor: pointer; animation: pulse 1.8s infinite; transition: opacity .3s; }
+.open .seal, .open .hint { opacity: 0; animation: none; }
+.hint { position: absolute; bottom: 8%; width: 100%; text-align: center; color: var(--gold);
+  font-size: 1.1rem; animation: blink 2s infinite; transition: opacity .3s; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.6); } 100% { box-shadow: 0 0 0 22px rgba(255,255,255,0); } }
+@keyframes blink { 50% { opacity: .4; } }
+
+/* ---------- الصفحات ---------- */
+.content { opacity: 0; transform: scale(.97); transition: all 1.4s ease .8s; }
+.content.show { opacity: 1; transform: none; }
+/* خلفية الورق والورد، مع مساحة للورد على الشمال */
+.page { min-height: 100dvh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; gap: 14px;
+  padding: 70px 14% 70px 24%;
+  background: url(/bg.jpeg) center / 100% 100% no-repeat; }
+
+.verse { font-family: var(--f-title); font-size: 1.9rem; line-height: 1.9; color: var(--gold); }
+.title { font-family: var(--f-title); font-size: 1.9rem; color: var(--gold); }
+.name { font-family: var(--f-title); font-size: 2.3rem; color: var(--ink); }
+.and { font-size: 1.4rem; color: var(--gold); }
+.small { font-size: 1.1rem; }
+.big { font-size: 1.5rem; font-weight: 700; }
+.orn { color: var(--gold); font-size: 1.2rem; }
+
+.plan { list-style: none; width: 100%; display: grid; gap: 14px; text-align: right; }
+.plan li { display: flex; gap: 12px; align-items: center; border-bottom: 1px solid rgba(138,106,47,.35); padding-bottom: 10px; }
+.plan b { color: var(--gold); min-width: 64px; }
+.plan strong { display: block; font-size: 1.15rem; }
+.plan span { font-size: .95rem; }
+
+.btn { margin-top: 10px; padding: 10px 22px; border: 1.5px solid var(--gold); border-radius: 999px;
+  color: var(--gold); text-decoration: none; font-size: 1.05rem; transition: .3s; }
+.btn:hover { background: var(--gold); color: #fff; }
